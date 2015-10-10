@@ -8,7 +8,7 @@ use Zend\Mvc\MvcEvent;
 class BaseController extends AbstractActionController
 {
     /**
-     * @var \Doctrine\ODM\MongoDB\DocumentManager $documentManager
+     * @var \Doctrine\ORM\EntityManager $documentManager
      */
     private $documentManager;
 
@@ -19,7 +19,7 @@ class BaseController extends AbstractActionController
     {
         $this->documentManager = $e->getApplication()
             ->getServiceManager()
-            ->get('doctrine.documentmanager.odm_default');
+            ->get('doctrine.entitymanager.orm_default');
 
         return parent::onDispatch($e);
     }
