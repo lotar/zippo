@@ -13,23 +13,52 @@ $form->setAttribute('action', $this->url('zfcuser/changeemail'));
 $form->setAttribute('method', 'post');
 
 ?>
-<?php echo $this->form()->openTag($form) ?>
-    <dl class="zend_form">
-    <?php foreach ($form as $element): ?>
-        <?php if ($element->getLabel() != null): ?>
-            <dt><?php echo $this->formLabel($element) ?></dt>
+
+
+<div class="ui grid">
+    <div class="twelve wide column">
+        <div style="float:left; padding-right:16px;"><?php echo $this->gravatar($this->zfcUserIdentity()->getEmail()) ?></div>
+        <h3><?php echo $this->translate('Hello'); ?>, <?php echo $this->zfcUserDisplayName() ?>!</h3>
+        <a href="<?php echo $this->url('zfcuser/logout') ?>">[<?php echo $this->translate('Sign Out'); ?>]</a>
+        <div style="clear:both;"></div>
+
+        <?php echo $this->form()->openTag($form) ?>
+        <dl class="zend_form">
+            <?php foreach ($form as $element): ?>
+                <?php if ($element->getLabel() != null): ?>
+                    <dt><?php echo $this->formLabel($element) ?></dt>
+                <?php endif ?>
+                <?php if ($element instanceof Zend\Form\Element\Button): ?>
+                    <dd><?php echo $this->formButton($element) ?></dd>
+                <?php elseif ($element instanceof Zend\Form\Element\Captcha): ?>
+                    <dd><?php echo $this->formCaptcha($element) . $this->formElementErrors($element) ?></dd>
+                <?php else: ?>
+                    <dd><?php echo $this->formInput($element) . $this->formElementErrors($element) ?></dd>
+                <?php endif ?>
+            <?php endforeach ?>
+        </dl>
+        <?php if ($this->redirect): ?>
+            <input type="hidden" name="redirect" value="<?php echo $this->redirect ?>" />
         <?php endif ?>
-        <?php if ($element instanceof Zend\Form\Element\Button): ?>
-            <dd><?php echo $this->formButton($element) ?></dd>
-        <?php elseif ($element instanceof Zend\Form\Element\Captcha): ?>
-            <dd><?php echo $this->formCaptcha($element) . $this->formElementErrors($element) ?></dd>
-        <?php else: ?>
-            <dd><?php echo $this->formInput($element) . $this->formElementErrors($element) ?></dd>
-        <?php endif ?>
-    <?php endforeach ?>
-    </dl>
-    <?php if ($this->redirect): ?>
-        <input type="hidden" name="redirect" value="<?php echo $this->redirect ?>" />
-    <?php endif ?>
-    <input type="submit" value="Submit" />
-<?php echo $this->form()->closeTag() ?>
+        <input type="submit" value="Submit" />
+        <?php echo $this->form()->closeTag() ?>
+
+
+    </div>
+    <div class="four wide column">
+
+        <div class="ui vertical menu">
+            <div class="header item"><a href="/user">Moj Račun</a> </div>
+            <a class="item" href="/user/change-email">Promijeni email</a>
+            <a class="item" href="/user/change-password">Promijeni Lozinku</a>
+            <a class="item" href="<?php echo $this->url('zfcuser/logout') ?>"><strong><?php echo $this->translate('Odjava'); ?></strong></a>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+

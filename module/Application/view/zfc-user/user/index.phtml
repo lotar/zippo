@@ -1,4 +1,23 @@
-<div style="float:left; padding-right:16px;"><?php echo $this->gravatar($this->zfcUserIdentity()->getEmail()) ?></div>
-<h3><?php echo $this->translate('Hello'); ?>, <?php echo $this->zfcUserDisplayName() ?>!</h3>
-<a href="<?php echo $this->url('zfcuser/logout') ?>">[<?php echo $this->translate('Sign Out'); ?>]</a>
-<div style="clear:both;"></div>
+
+<div class="ui grid">
+    <div class="twelve wide column">
+        <h1>Moji podaci</h1>
+        <h2 class="ui header">
+            <div class="ui circular image">
+                <?php echo $this->gravatar($this->zfcUserIdentity()->getEmail()) ?>
+            </div>
+
+            <?php echo $this->zfcUserDisplayName() ?>
+        </h2>
+    </div>
+    <div class="four wide column">
+
+    <div class="ui vertical menu">
+        <div class="header item"><a href="/user">Moj Račun</a> </div>
+        <a class="item" href="/user/change-email">Promijeni email</a>
+        <a class="item" href="/user/change-password">Promijeni Lozinku</a>
+        <a class="item" href="<?php echo $this->url('zfcuser/logout') ?>"><strong><?php echo $this->translate('Odjava'); ?></strong></a>
+    </div>
+
+    </div>
+</div>
