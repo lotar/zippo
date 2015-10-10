@@ -47,6 +47,12 @@ class User extends Base implements UserInterface
     private $address;
 
     /**
+     * @ORM\Column(name="description", type="string", nullable=true, length=800)
+     * @var string
+     */
+    private $description;
+
+    /**
      * @ORM\Column(name="latitude", type="float", nullable=true)
      * @var float
      */
@@ -223,5 +229,23 @@ class User extends Base implements UserInterface
     public function getUsername()
     {
         return $this->getEmail();
+    }
+
+    /**
+     * @param $description
+     * @return $this
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

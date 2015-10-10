@@ -12,15 +12,12 @@
             </div>
             <div class="content">
                 <a class="header"><?php echo $listing->getName(); ?></a>
-                <div class="meta">
-                    <span class="date">Joined in 2013</span>
-                </div>
                 <div class="description">
                     <?php echo $listing->getDescription(); ?>
                 </div>
             </div>
             <div class="extra content">
-                <a href="/listing/index">
+                <a href="/listing/<?php echo $listing->getUserId(); ?>">
                     <i class="user icon"></i>
                     <?php echo $this->providersMap[$listing->getUserId()]->getDisplayName(); ?>
                 </a>
@@ -28,7 +25,4 @@
         </div>
     </div>
     <?php endforeach; ?>
-    <?php //if ($k % 3 !== 0) : ?>
-    <!--    </div>-->
-    <?php //endif; ?>
 </div>

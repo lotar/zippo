@@ -34,6 +34,7 @@ class AccountController extends BaseController
         $name = $request->getPost('name', '');
         $phone = $request->getPost('phone', '');
         $address = $request->getPost('address', '');
+        $description = $request->getPost('description', '');
 
         $lat = null;
         $lng = null;
@@ -64,7 +65,8 @@ class AccountController extends BaseController
         $user = $this->getAuthService()->getIdentity();
         $user->setDisplayName($name)
             ->setPhone($phone)
-            ->setAddress($address);
+            ->setAddress($address)
+            ->setDescription($description);
 
         if ($lat && $lng) {
             $user->setLatitude($lat)

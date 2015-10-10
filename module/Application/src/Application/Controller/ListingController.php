@@ -3,6 +3,7 @@
 namespace Application\Controller;
 
 use Application\Document\Listing;
+use Application\Document\User;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -13,10 +14,21 @@ class ListingController extends BaseController
 {
     public function indexAction()
     {
+        $id = $this->params()->fromRoute('id', null);
+        if ($id === null) {
+            return $this->redirect()->toRoute('application');
+        }
+
+        $user = $this->getDocumentManager()->find('Application\Document\User', $id);
+
+        if (!$user instanceof User) {
+            return $this->redirect()->toRoute('application');
+        }
+
         $offset = 0;
         /* @var \Application\Repository\Listing $repo */
         $repo = $this->getDocumentManager()->getRepository('Application\Document\Listing');
-        $listings = $repo->getPage(12, $offset);
+        $listings = $repo->getUserPage($user, 12, $offset);
 
         $userIds = array();
         foreach ($listings as $one) {

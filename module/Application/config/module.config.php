@@ -40,6 +40,24 @@ return array(
                     ),
                 ),
                 'may_terminate' => true,
+                'priority' => 2,
+            ),
+            'listing-id' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/[:controller[/:id]]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'         => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller'    => 'Listing',
+                        'action'        => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'priority' => 1,
             ),
         ),
     ),
