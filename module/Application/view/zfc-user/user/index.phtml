@@ -4,21 +4,11 @@
         <h1>Moji podaci</h1>
         <h2 class="ui header">
             <div class="ui circular image">
-                <?php echo $this->gravatar($this->zfcUserIdentity()->getEmail()) ?>
+                <?php echo $this->gravatar($this->zfcUserIdentity()->getEmail()); ?>
             </div>
-
-            <?php echo $this->zfcUserDisplayName() ?>
-
-            <form method="post" action="/account/edit">
-                <label for="edit-name">Ime</label><br/>
-                <input id="edit-name" type="text" name="name" value="<?php echo $this->zfcUserIdentity()->getDisplayName() ?>" /><br/>
-                <label for="edit-phone">Broj telefona</label><br/>
-                <input id="edit-phone" type="text" name="phone" value="<?php echo $this->zfcUserIdentity()->getPhone() ?>" /><br/>
-                <label for="edit-address">Adresa</label><br/>
-                <input id="edit-phone" type="text" name="address" value="<?php echo $this->zfcUserIdentity()->getAddress() ?>" /><br/>
-                <input type="submit" value="Spremi"/>
-            </form>
         </h2>
+
+        <?php echo $this->zfcUserDisplayName();?>
     </div>
     <div class="four wide column">
 

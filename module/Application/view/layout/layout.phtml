@@ -20,18 +20,22 @@
             .site-container{
                 padding: 1em 0;
             }
-
-
+            .site-logo img{
+                width: 100%;
+                max-width: 150px;
+            }
         </style>
 
     </head>
     <body>
         <div class="ui main container site-container">
+            <h1 class="site-logo">
+                <a href="<?php echo $this->url("application"); ?>">
+                    <img src="/cdn/assets/images/farma-direkt-logo.png" alt="">
+                </a>
+            </h1>
 
             <div class="ui stackable menu">
-                <div class="item">
-                    <h1><a href="<?php echo $this->url("application"); ?>">ORGAN&KA</a></h1>
-                </div>
                 <a class="item"><strong>Domaće je najbliže</strong></a>
 <!--                <a class="item">Features</a>-->
 <!--                <a class="item">Testimonials</a>-->
