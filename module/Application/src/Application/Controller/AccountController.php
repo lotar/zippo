@@ -13,7 +13,7 @@ use Zend\View\Model\ViewModel;
 class AccountController extends BaseController
 {
     /**
-     * Used for account registration egistration
+     * Used for account registration registration
      *
      * @return ViewModel
      */
