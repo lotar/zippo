@@ -29,13 +29,23 @@
         <div class="ui main container site-container">
             <div class="ui stackable menu">
                 <div class="item">
-                    <h1>ORGAN&KA</h1>
+                    <h1><a href="<?php echo $this->url("application"); ?>">ORGAN&KA</a></h1>
                 </div>
                 <a class="item">Features</a>
                 <a class="item">Testimonials</a>
 
                 <div class="right menu">
-                    <a class="item">Moj račun</a>
+                    <?php if ($this->zfcUserIdentity()):?>
+                    <a class="item" href="/user"><i class="sign in icon"></i>
+                    <?php echo $this->zfcUserIdentity()->getEmail();?>
+                    </a>
+                    <a class="item"><i class="in cart icon"></i> Košarica</a>
+                    <?php else: ?>
+                        <a class="item" href="/user/login"><i class="sign in icon"></i> Moj račun</a>
+                        <a class="item"><i class="in cart icon"></i> Košarica</a>
+                    <?php endif;?>
+
+
                 </div>
             </div>
             
