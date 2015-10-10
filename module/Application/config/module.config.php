@@ -36,24 +36,48 @@ return array(
     // Router
     'router' => array(
         'routes' => array(
-            'home' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route'    => '/',
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
-                        'action'     => 'index',
-                    ),
-                ),
-            ),
+//            'home' => array(
+//                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                'options' => array(
+//                    'route'    => '/',
+//                    'defaults' => array(
+//                        'controller' => 'Application\Controller\Index',
+//                        'action'     => 'index',
+//                    ),
+//                ),
+//            ),
+//            'listing' => array(
+//                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                'options' => array(
+//                    'route'    => '/listing',
+//                    'defaults' => array(
+//                        'controller' => 'Application\Controller\Listing',
+//                        'action'     => 'index',
+//                    ),
+//                ),
+//            ),
+//            'cart' => array(
+//                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                'options' => array(
+//                    'route'    => '/cart',
+//                    'defaults' => array(
+//                        'controller' => 'Application\Controller\Cart',
+//                        'action'     => 'index',
+//                    ),
+//                ),
+//            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
             'application' => array(
-                'type'    => 'Literal',
+                'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/application',
+                    'route'    => '/[:controller[/:action]]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Application\Controller',
                         'controller'    => 'Index',
@@ -61,20 +85,6 @@ return array(
                     ),
                 ),
                 'may_terminate' => true,
-                'child_routes' => array(
-                    'default' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
-                    ),
-                ),
             ),
         ),
     ),
@@ -99,7 +109,9 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => Controller\IndexController::class
+            'Application\Controller\Index' => Controller\IndexController::class,
+            'Application\Controller\Listing' => Controller\ListingController::class,
+            'Application\Controller\Cart' => Controller\CartController::class
         ),
     ),
     'view_manager' => array(
