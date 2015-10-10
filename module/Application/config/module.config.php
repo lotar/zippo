@@ -1,11 +1,4 @@
 <?php
-/**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- */
 
 namespace Application;
 
@@ -13,21 +6,17 @@ return array(
     // Doctrine config
     'doctrine' => array(
         'driver' => array(
-            // defines an annotation driver with two paths, and names it `my_annotation_driver`
-            'application_driver' => array(
+            'application_entities' => array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
                 'paths' => array(
-                    '../src/Application/Document',
+                    __DIR__ . '/../src/Application/Document',
                 ),
             ),
 
-            // default metadata driver, aggregates all other drivers into a single one.
-            // Override `orm_default` only if you know what you're doing
             'orm_default' => array(
                 'drivers' => array(
-                    // register `my_annotation_driver` for any entity under namespace `My\Namespace`
-                    'Account\Document' => 'application_driver'
+                    'Application\Document' => 'application_entities'
                 )
             )
         )
@@ -36,40 +25,6 @@ return array(
     // Router
     'router' => array(
         'routes' => array(
-//            'home' => array(
-//                'type' => 'Zend\Mvc\Router\Http\Literal',
-//                'options' => array(
-//                    'route'    => '/',
-//                    'defaults' => array(
-//                        'controller' => 'Application\Controller\Index',
-//                        'action'     => 'index',
-//                    ),
-//                ),
-//            ),
-//            'listing' => array(
-//                'type' => 'Zend\Mvc\Router\Http\Literal',
-//                'options' => array(
-//                    'route'    => '/listing',
-//                    'defaults' => array(
-//                        'controller' => 'Application\Controller\Listing',
-//                        'action'     => 'index',
-//                    ),
-//                ),
-//            ),
-//            'cart' => array(
-//                'type' => 'Zend\Mvc\Router\Http\Literal',
-//                'options' => array(
-//                    'route'    => '/cart',
-//                    'defaults' => array(
-//                        'controller' => 'Application\Controller\Cart',
-//                        'action'     => 'index',
-//                    ),
-//                ),
-//            ),
-            // The following is a route to simplify getting started creating
-            // new controllers and actions without needing to create a new
-            // module. Simply drop new controllers in, and you can access them
-            // using the path /application/:controller/:action
             'application' => array(
                 'type'    => 'Segment',
                 'options' => array(

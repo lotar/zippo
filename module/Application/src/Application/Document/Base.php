@@ -2,10 +2,10 @@
 
 namespace Application\Document;
 
-use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ODM\MappedSuperclass
+ * @ORM\MappedSuperclass
  *
  * Class Base
  * @package Application\Document
@@ -13,8 +13,10 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 class Base
 {
     /**
-     * @ODM\Id
-     * @var string
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @var int
      */
     private $id;
 

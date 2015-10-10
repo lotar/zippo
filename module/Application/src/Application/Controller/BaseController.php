@@ -25,7 +25,7 @@ class BaseController extends AbstractActionController
     }
 
     /**
-     * @return \Doctrine\ODM\MongoDB\DocumentManager
+     * @return \Doctrine\ORM\EntityManager
      */
     public function getDocumentManager()
     {
