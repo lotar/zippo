@@ -2,6 +2,7 @@
 
 namespace Application\Controller;
 
+use Zend\Http\PhpEnvironment\Request;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 
@@ -11,6 +12,19 @@ class BaseController extends AbstractActionController
      * @var \Doctrine\ORM\EntityManager $documentManager
      */
     private $documentManager;
+
+    /**
+     * @return \Zend\Http\PhpEnvironment\Request
+     * @throws \RuntimeException
+     */
+    public function getRequest()
+    {
+        $request = parent::getRequest();
+        if ($request instanceof Request) {
+            return $request;
+        }
+        throw new \RuntimeException("Only PHP Environment requests are allowed.");
+    }
 
     /**
      * @inheritdoc
