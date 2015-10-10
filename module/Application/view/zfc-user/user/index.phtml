@@ -4,7 +4,7 @@
         <h1>Moji podaci</h1>
         <h2 class="ui header">
             <div class="ui circular image">
-                <?php echo $this->gravatar($this->zfcUserIdentity()->getEmail()) ?>
+                <?php echo $this->gravatar($this->zfcUserIdentity()->getEmail()); ?>
             </div>
 
             <?php echo $this->zfcUserDisplayName() ?>
