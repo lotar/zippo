@@ -3,6 +3,7 @@
 namespace Application\Document;
 
 use Doctrine\ORM\Mapping as ORM;
+use ZfcUser\Entity\UserInterface;
 
 // TODO: GOOGLE api for lat/long
 
@@ -13,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class User
  * @package Application\Document
  */
-class User extends Base
+class User extends Base implements UserInterface
 {
     /**
      * @ORM\Column(name="email", type="string", nullable=false, length=800)
@@ -51,15 +52,7 @@ class User extends Base
      */
     private $longitude;
 
-    /**
-     * @param $email
-     * @param $password
-     */
-    public function __construct($email, $password)
-    {
-        $this->setEmail($email);
-        $this->setPassword($email);
-    }
+    private $state;
 
     /**
      * @param $email
@@ -175,5 +168,53 @@ class User extends Base
     public function getLongitude()
     {
         return $this->longitude;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setDisplayName($displayName)
+    {
+        throw new \RuntimeException("Nope");
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getDisplayName()
+    {
+        return $this->getEmail();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setUsername($username)
+    {
+        throw new \RuntimeException("Nope");
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getUsername()
+    {
+        return $this->getEmail();
     }
 }

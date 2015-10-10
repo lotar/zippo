@@ -2,6 +2,8 @@
     "minimum-stability": "alpha",
     "require": {
         "zendframework/zendframework": "~2.5",
-        "doctrine/doctrine-orm-module": "0.9.*"
+        "doctrine/doctrine-orm-module": "0.9.*",
+        "zf-commons/zfc-user": "1.x-dev",
+        "zf-commons/zfc-user-doctrine-orm": "~1.0"
     }
 }
