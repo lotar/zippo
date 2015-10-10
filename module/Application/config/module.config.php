@@ -10,6 +10,23 @@
 namespace Application;
 
 return array(
+    // Doctrine config
+    'doctrine' => array(
+        'driver' => array(
+            'application_entities' => array(
+                'class' =>'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => array(__DIR__ . '/../src/Application/Document')
+            ),
+            'odm_default' => array(
+                'drivers' => array(
+                    'Application\Document' => 'application_entities',
+                )
+            ),
+        )
+    ),
+
+    // Router
     'router' => array(
         'routes' => array(
             'home' => array(

@@ -1,6 +1,9 @@
 {
+    "minimum-stability": "alpha",
     "require": {
         "zendframework/zendframework": "~2.5",
-        "backplane/mongodb-odm": "dev-master"
+        "backplane/mongodb-odm": "dev-master",
+        "doctrine/doctrine-module": "0.8.*",
+        "backplane/doctrine-mongo-odm-module": "dev-master"
     }
 }
