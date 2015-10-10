@@ -1,5 +1,6 @@
 {
     "require": {
-        "zendframework/zendframework": "~2.5"
+        "zendframework/zendframework": "~2.5",
+        "backplane/mongodb-odm": "dev-master"
     }
 }
