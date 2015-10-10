@@ -38,6 +38,12 @@ class Listing extends Base
     private $quantity;
 
     /**
+     * @ORM\Column(name="price", type="float", nullable=false)
+     * @var float
+     */
+    private $price;
+
+    /**
      * @param User $user
      * @param $name
      */
@@ -117,5 +123,23 @@ class Listing extends Base
     public function getQuantity()
     {
         return $this->quantity;
+    }
+
+    /**
+     * @param $price
+     * @return $this
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return (float) $this->price;
     }
 }

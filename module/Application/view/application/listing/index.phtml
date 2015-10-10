@@ -1,51 +1,46 @@
-<div class="ui divided items">
-    <div class="item">
-        <div class="image">
-            <img src="http://placehold.it/200x200">
-        </div>
-        <div class="content">
-            <a class="header"><?php echo $this->zfcUserIdentity()->getDisplayName(); ?></a>
-            <div class="meta">
-                <span class="cinema"><?php echo $this->zfcUserIdentity()->getAddress(); ?></span>
-            </div>
-            <div class="description">
-                <p><?php echo $this->zfcUserIdentity()->getDescription(); ?></p>
-            </div>
-            <div class="extra">
-                <div class="ui label green"><i class="checkmark box icon"></i> Provjeren</div>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="ui grid">
+    <div class="twelve wide column">
 
-<?php foreach ($this->listings as $k => $listing) : ?>
-<?php if ($k % 3 === 0 && $k > 0) : ?>
-    </div>
-    <?php endif; ?>
-<?php if ($k % 3 === 0) : ?>
-<div class="ui three column grid stackable">
-    <?php endif;?>
-    <div class="column">
-        <div class="ui fluid card">
-            <div class="image">
-                <img src="http://placehold.it/200x200">
-            </div>
-            <div class="content">
-                <a class="header"><?php echo $listing->getName(); ?></a>
-                <div class="description">
-                    <?php echo $listing->getDescription(); ?>
+    <?php foreach ($this->listings as $k => $listing) : ?>
+        <?php if ($k % 3 === 0 && $k > 0) : ?>
+        </div>
+        <?php endif; ?>
+        <?php if ($k % 3 === 0) : ?>
+        <div class="ui three column grid stackable">
+        <?php endif;?>
+            <div class="column">
+                <div class="ui fluid card">
+                    <div class="image">
+                        <img src="http://placehold.it/200x200">
+                    </div>
+                    <div class="content">
+                        <a class="header"><?php echo $listing->getName(); ?></a>
+                        <div class="description">
+                            <?php echo $listing->getDescription(); ?>
+                        </div>
+                        <div class="price">
+                            <?php echo sprintf("%.2f", $listing->getPrice()); ?> novaca
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <i class="user icon"></i>
+                        <?php echo $this->providersMap[$listing->getUserId()]->getDisplayName(); ?>
+                    </div>
                 </div>
             </div>
-            <div class="extra content">
-                <a href="/listing/<?php echo $listing->getUserId(); ?>">
-                    <i class="user icon"></i>
-                    <?php echo $this->providersMap[$listing->getUserId()]->getDisplayName(); ?>
-                </a>
-            </div>
+            <?php endforeach; ?>
         </div>
+        </div>
+
+    <div class="four wide column">
+
+        <div class="ui vertical menu">
+            <div class="header item"><a href="/listing/index">Pregled ponude</a></div>
+            <a href="/user" class="item">Moj Račun</a>
+            <a class="item" href="/user/change-email">Promijeni email</a>
+            <a class="item" href="/user/change-password">Promijeni Lozinku</a>
+            <a class="item" href="<?php echo $this->url('zfcuser/logout') ?>"><strong><?php echo $this->translate('Odjava'); ?></strong></a>
+        </div>
+
     </div>
-    <?php endforeach; ?>
-    <?php //if ($k % 3 !== 0) : ?>
-    <!--    </div>-->
-    <?php //endif; ?>
 </div>

@@ -1,4 +1,3 @@
-<h3><?php echo sprintf($this->translate('Change Email for %s'), $this->zfcUserDisplayName()); ?></h3>
 <?php if ($status === true) : ?>
 <div class="alert alert-success"><?php echo $this->translate('Email address changed successfully.'); ?></div>
 <?php elseif ($status === false) : ?>
@@ -48,8 +47,9 @@ $form->setAttribute('method', 'post');
     <div class="four wide column">
 
         <div class="ui vertical menu">
-            <div class="header item"><a href="/user">Moj Račun</a> </div>
-            <a class="item" href="/user/change-email">Promijeni email</a>
+            <a class="item" href="/listing/index">Pregled ponude</a>
+            <a class="item" href="/user">Moj Račun</a>
+            <div class="header item"><a href="/user/change-email">Promijeni email</a></div>
             <a class="item" href="/user/change-password">Promijeni Lozinku</a>
             <a class="item" href="<?php echo $this->url('zfcuser/logout') ?>"><strong><?php echo $this->translate('Odjava'); ?></strong></a>
         </div>

@@ -15,6 +15,9 @@
                 <div class="description">
                     <?php echo $listing->getDescription(); ?>
                 </div>
+                <div class="price">
+                    <?php echo sprintf("%.2f", $listing->getPrice()); ?> novaca
+                </div>
             </div>
             <div class="extra content">
                 <a href="/listing/<?php echo $listing->getUserId(); ?>">
