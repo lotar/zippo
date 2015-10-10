@@ -45,4 +45,9 @@ class BaseController extends AbstractActionController
     {
         return $this->documentManager;
     }
+
+    public function getAuthService()
+    {
+        return $this->getServiceLocator()->get('zfcuser_auth_service');
+    }
 }

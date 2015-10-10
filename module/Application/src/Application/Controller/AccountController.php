@@ -3,7 +3,9 @@
 namespace Application\Controller;
 
 use Application\Document\User;
-use Zend\Validator\EmailAddress;
+use Zend\Http\Client;
+use Zend\Http\Request;
+use Zend\Json\Json;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -13,11 +15,11 @@ use Zend\View\Model\ViewModel;
 class AccountController extends BaseController
 {
     /**
-     * Used for account registration registration
+     * Used for editing account information
      *
      * @return ViewModel
      */
-    public function registerAction()
+    public function editAction()
     {
         $request = $this->getRequest();
 
@@ -25,24 +27,54 @@ class AccountController extends BaseController
             return $this->notFoundAction();
         }
 
-        $email = $request->getPost('email', '');
-        $password = $request->getPost('password', '');
-
-        $emailValidator = new EmailAddress();
-        if ($emailValidator->isValid($email) === false) {
-            throw new \RuntimeException('Invalid email address format.');
+        if (!$this->getAuthService()->getIdentity() instanceof User) {
+            $this->redirect()->toRoute('application');
         }
 
-        if (strlen($password) < 8) {
-            throw new \RuntimeException('Password too short.');
+        $name = $request->getPost('name', '');
+        $phone = $request->getPost('phone', '');
+        $address = $request->getPost('address', '');
+
+        $lat = null;
+        $lng = null;
+        if (!empty($address)) {
+            $apiKey = $this->getServiceLocator()->get('config')['google']['api_key'];
+            $checkUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" .
+                $address .
+                "&key=" .
+                $apiKey;
+            $request = new Request();
+            $request->setUri($checkUrl);
+            $request->setMethod('GET');
+
+            $client = new Client();
+            $response = $client->send($request);
+
+            $body = $response->getBody();
+            $decoded = Json::decode($body, Json::TYPE_ARRAY);
+            if (isset($decoded['results'][0]['geometry']['location']['lat'])
+                && isset($decoded['results'][0]['geometry']['location']['lng'])
+            ) {
+                $lat = $decoded['results'][0]['geometry']['location']['lat'];
+                $lng = $decoded['results'][0]['geometry']['location']['lng'];
+            }
         }
 
-        $user = new User($email, $password);
+        /* @var \Application\Document\User $user */
+        $user = $this->getAuthService()->getIdentity();
+        $user->setDisplayName($name)
+            ->setPhone($phone)
+            ->setAddress($address);
 
-        $this->getDocumentManager()->persist($user);
+        if ($lat && $lng) {
+            $user->setLatitude($lat)
+                ->setLongitude($lng);
+        }
+
+        //Distance URL for checkout https://maps.googleapis.com/maps/api/distancematrix/json?origins=Osijek&destinations=Vinkovci&key=
+
         $this->getDocumentManager()->flush();
 
-        // TODO: redirect to referrer
-        return new ViewModel();
+        return $this->redirect()->toRoute('zfcuser');
     }
 }

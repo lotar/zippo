@@ -198,6 +198,7 @@ class User extends Base implements UserInterface
     public function setDisplayName($displayName)
     {
         $this->name = $displayName;
+        return $this;
     }
 
     /**
