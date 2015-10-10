@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="listings")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Application\Repository\Listing")
  *
  * Class Listing
  * @package Application\Document
@@ -32,7 +32,7 @@ class Listing extends Base
     private $description;
 
     /**
-     * @ORM\Column(name="qty", type="int", nullable=false)
+     * @ORM\Column(name="qty", type="integer", nullable=false)
      * @var int
      */
     private $quantity;

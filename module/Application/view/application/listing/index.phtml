@@ -18,76 +18,37 @@
     </div>
 </div>
 
-
-<div class="ui three column grid">
+<?php foreach ($this->listings as $k => $listing) : ?>
+<?php if ($k % 3 === 0 && $k > 0) : ?>
+    </div>
+    <?php endif; ?>
+<?php if ($k % 3 === 0) : ?>
+<div class="ui three column grid stackable">
+    <?php endif;?>
     <div class="column">
         <div class="ui fluid card">
             <div class="image">
                 <img src="http://placehold.it/200x200">
             </div>
             <div class="content">
-                <a class="header">Jabuka Crveni Delišes</a>
+                <a class="header"><?php echo $listing->getName(); ?></a>
                 <div class="meta">
                     <span class="date">Joined in 2013</span>
                 </div>
                 <div class="description">
-                    Najbolja jabuka ikad.
+                    <?php echo $listing->getDescription(); ?>
                 </div>
             </div>
             <div class="extra content">
-                <a>
+                <a href="/listing/index">
                     <i class="user icon"></i>
-                    22 Friends
+                    <?php echo $this->providersMap[$listing->getUserId()]->getDisplayName(); ?>
                 </a>
             </div>
-
         </div>
     </div>
-    <div class="column">
-        <div class="ui fluid card">
-            <div class="image">
-                <img src="http://placehold.it/200x200">
-            </div>
-            <div class="content">
-                <a class="header">Jabuka Crveni Delišes</a>
-                <div class="meta">
-                    <span class="date">Joined in 2013</span>
-                </div>
-                <div class="description">
-                    Najbolja jabuka ikad.
-                </div>
-            </div>
-            <div class="extra content">
-                <a>
-                    <i class="user icon"></i>
-                    22 Friends
-                </a>
-            </div>
-
-        </div>
-    </div>
-    <div class="column">
-        <div class="ui fluid card">
-            <div class="image">
-                <img src="http://placehold.it/200x200">
-            </div>
-            <div class="content">
-                <a class="header">Jabuka Crveni Delišes</a>
-                <div class="meta">
-                    <span class="date">Joined in 2013</span>
-                </div>
-                <div class="description">
-                    Najbolja jabuka ikad.
-                </div>
-            </div>
-            <div class="extra content">
-                <a>
-                    <i class="user icon"></i>
-                    22 Friends
-                </a>
-            </div>
-
-        </div>
-    </div>
-
+    <?php endforeach; ?>
+    <?php //if ($k % 3 !== 0) : ?>
+    <!--    </div>-->
+    <?php //endif; ?>
 </div>

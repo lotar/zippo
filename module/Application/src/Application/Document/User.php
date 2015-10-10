@@ -9,7 +9,7 @@ use ZfcUser\Entity\UserInterface;
 
 /**
  * @ORM\Table(name="users")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Application\Repository\User")
  *
  * Class User
  * @package Application\Document
@@ -27,6 +27,12 @@ class User extends Base implements UserInterface
      * @var string
      */
     private $password;
+
+    /**
+     * @ORM\Column(name="name", type="string", nullable=false, length=100)
+     * @var string
+     */
+    private $name;
 
     /**
      * @ORM\Column(name="phone", type="string", nullable=true, length=30)
@@ -191,7 +197,7 @@ class User extends Base implements UserInterface
      */
     public function setDisplayName($displayName)
     {
-        throw new \RuntimeException("Nope");
+        $this->name = $displayName;
     }
 
     /**
@@ -199,7 +205,7 @@ class User extends Base implements UserInterface
      */
     public function getDisplayName()
     {
-        return $this->getEmail();
+        return $this->name;
     }
 
     /**

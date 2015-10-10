@@ -1,24 +1,34 @@
-<div class="ui divided items">
-    <div class="item">
-        <div class="image">
-            <img src="http://placehold.it/200x200">
-        </div>
-        <div class="content">
-            <a class="header">OPG ZLATKOV - TRAMONTANA WOOD CRAFT OTOK CRES</a>
-            <div class="meta">
-                <span class="cinema">Filozići 9, 51574 Cres | Kvarner</span>
+<?php foreach ($this->listings as $k => $listing) : ?>
+<?php if ($k % 3 === 0 && $k > 0) : ?>
+    </div>
+    <?php endif; ?>
+<?php if ($k % 3 === 0) : ?>
+<div class="ui three column grid stackable">
+    <?php endif;?>
+    <div class="column">
+        <div class="ui fluid card">
+            <div class="image">
+                <img src="http://placehold.it/200x200">
             </div>
-            <div class="description">
-                <p>Opg Zlatkov - Tramontana wood craft nalazi se na otoku Cresu u malom mjestu Filozići koje ima svega tridesetak, većinom nenastanjenih kuća, i samo tri obitelji koje borave tokom cijele godine, ali zato ništa manje vrijednim posjeta!</p>
-            </div>
-            <div class="extra">
-                <div class="ui right floated primary button">
-                    Ponuda
-                    <i class="right chevron icon"></i>
+            <div class="content">
+                <a class="header"><?php echo $listing->getName(); ?></a>
+                <div class="meta">
+                    <span class="date">Joined in 2013</span>
                 </div>
-                <div class="ui label green"><i class="checkmark box icon"></i> Provjeren</div>
-
+                <div class="description">
+                    <?php echo $listing->getDescription(); ?>
+                </div>
+            </div>
+            <div class="extra content">
+                <a href="/listing/index">
+                    <i class="user icon"></i>
+                    <?php echo $this->providersMap[$listing->getUserId()]->getDisplayName(); ?>
+                </a>
             </div>
         </div>
     </div>
+    <?php endforeach; ?>
+    <?php //if ($k % 3 !== 0) : ?>
+    <!--    </div>-->
+    <?php //endif; ?>
 </div>
