@@ -114,9 +114,9 @@ class OrderController extends BaseController
 
         foreach ($users as $user) {
             $name = $request->getPost('name', '');
-            $email = $request->getPost('description', '');
-            $phone = $request->getPost('price', 0);
-            $address = $request->getPost('price', 0);
+            $email = $request->getPost('email', '');
+            $phone = $request->getPost('phone', 0);
+            $address = $request->getPost('address', 0);
             $this->notifyUser(
                 $user,
                 $orderFinalMap[$user->getId()],
@@ -128,7 +128,7 @@ class OrderController extends BaseController
             );
         }
 
-        return $this->successAction();
+        return $this->redirect()->toRoute('application', array('action' => 'success', 'controller' => 'order'));
     }
 
     public function successAction()
@@ -140,7 +140,7 @@ class OrderController extends BaseController
     {
         //TODO: throw exception if address not recognized
 
-        $text = 'Pozdrav ' . $user->getDisplayName() . ",\n" .
+        $text = 'Pozdrav ' . $user->getDisplayName() . ",\n\n" .
         'Dobili ste iducu narudzbu:' . "\nn";
 
         foreach ($qtyMap as $listingId => $qty) {
@@ -151,7 +151,7 @@ class OrderController extends BaseController
 
         $distance = $this->checkDistance($user, $address);
         if ($distance !== null) {
-            $text .= "Izracunali smo da je od Vas to udaljeno" . $distance . "\n";
+            $text .= "Izracunali smo da je od Vas to udaljeno " . $distance . "\n\n";
         }
 
         $text .= 'Kontakt email: ' . $email . ', kontakt telefon: ' . $phone . "\n";
@@ -186,11 +186,8 @@ class OrderController extends BaseController
 
             $body = $response->getBody();
             $decoded = Json::decode($body, Json::TYPE_ARRAY);
-            if (isset($decoded['results'][0]['geometry']['location']['lat'])
-                && isset($decoded['results'][0]['geometry']['location']['lng'])
-            ) {
-                $lat = $decoded['results'][0]['geometry']['location']['lat'];
-                $lng = $decoded['results'][0]['geometry']['location']['lng'];
+            if (isset($decoded['rows'][0]['elements'][0]['distance']['text'])) {
+                return $decoded['rows'][0]['elements'][0]['distance']['text'];
             }
         }
         return null;
