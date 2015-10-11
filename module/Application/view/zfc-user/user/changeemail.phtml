@@ -1,8 +1,3 @@
-<?php if ($status === true) : ?>
-<div class="alert alert-success"><?php echo $this->translate('Email address changed successfully.'); ?></div>
-<?php elseif ($status === false) : ?>
-<div class="alert alert-error"><?php echo $this->translate('Unable to update your email address. Please try again.'); ?></div>
-<?php endif; ?>
 <?php
 
 $form = $this->changeEmailForm;
@@ -23,16 +18,23 @@ $form->setAttribute('method', 'post');
         <dl class="zend_form" style="margin-top: 0">
             <?php foreach ($form as $element): ?>
                 <?php if ($element->getLabel() != null): ?>
-                    <span><?php echo $this->formLabel($element) ?></span>
                 <?php endif ?>
                 <?php if ($element instanceof Zend\Form\Element\Button): ?>
-                    <dd><?php echo $this->formButton($element) ?></dd>
+                    <dd><?php echo $this->formButton($element->setAttribute('value', 'Promijeni')) ?></dd>
                 <?php elseif ($element instanceof Zend\Form\Element\Captcha): ?>
                     <?php echo $this->formCaptcha($element) . $this->formElementErrors($element) ?>
                 <?php else: ?>
                     <div class="field">
                         <div class="ui left input">
-                            <?php echo $this->formInput($element) . $this->formElementErrors($element) ?>
+                            <?php if ($element->getName() === 'newIdentity'): ?>
+                                <?php echo $this->formInput($element->setAttribute('placeholder', 'Novi email')) . $this->formElementErrors($element) ?>
+                            <?php elseif ($element->getName() === 'newIdentityVerify'): ?>
+                                <?php echo $this->formInput($element->setAttribute('placeholder', 'Novi email ponovno')) . $this->formElementErrors($element) ?>
+                            <?php elseif ($element->getName() === 'credential'): ?>
+                                <?php echo $this->formInput($element->setAttribute('placeholder', 'Lozinka')) . $this->formElementErrors($element) ?>
+                            <?php else: ?>
+                                <?php echo $this->formInput($element) . $this->formElementErrors($element) ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endif ?>
@@ -41,7 +43,7 @@ $form->setAttribute('method', 'post');
         <?php if ($this->redirect): ?>
             <input type="hidden" name="redirect" value="<?php echo $this->redirect ?>" />
         <?php endif ?>
-        <button class="ui submit button fluid large" type="submit" value="Submit">Submit</button>
+        <button class="ui submit button fluid large" type="submit" value="Submit">Promijeni</button>
         <?php echo $this->form()->closeTag() ?>
             </div>
         </div>
