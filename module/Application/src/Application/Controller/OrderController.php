@@ -16,8 +16,23 @@ class OrderController extends BaseController
     {
         /* @var \Application\Repository\OrderItem $orderItemsRepo */
         $orderItemsRepo = $this->getDocumentManager()->getRepository('Application\Document\OrderItem');
-        $listings = $orderItemsRepo->getBySessionId($this->getSessionManager()->getId());
-        return new ViewModel(array('listings' => $listings));
+        $orderItems = $orderItemsRepo->getBySessionId($this->getSessionManager()->getId());
+
+        $itemsQty = array();
+        $itemIds = array();
+        foreach ($orderItems as $one) {
+            if (!isset($itemsQty[$one->getItemId()])) {
+                $itemsQty[$one->getItemId()] = 0;
+            }
+            $itemsQty[$one->getItemId()]++;
+            $itemIds[] = $one->getItemId();
+        }
+
+        /* @var \Application\Repository\Listing $listingRepo */
+        $listingRepo = $this->getDocumentManager()->getRepository('Application\Document\Listing');
+        $listings = $listingRepo->getByListingIds($itemIds);
+
+        return new ViewModel(array('listings' => $listings, 'qty' => $itemsQty));
     }
 
     public function addAction()
@@ -47,5 +62,26 @@ class OrderController extends BaseController
         $this->getDocumentManager()->flush();
 
         return $this->redirect()->toRoute('application', array('action' => 'index', 'controller' => 'order'));
+    }
+
+    public function makeOrderAction()
+    {
+        $request = $this->getRequest();
+
+        if ($request->isPost() !== true) {
+            return $this->notFoundAction();
+        }
+
+        $name = $request->getPost('name', '');
+        $email = $request->getPost('description', '');
+        $phone = $request->getPost('price', 0);
+        $address = $request->getPost('price', 0);
+
+        return $this->successAction();
+    }
+
+    public function successAction()
+    {
+
     }
 }
