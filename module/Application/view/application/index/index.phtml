@@ -1,3 +1,44 @@
+<?php if (!$this->zfcUserIdentity()):?>
+    <div class="ui hidden divider"></div>
+
+    <div class="ui hidden divider"></div>
+<div class="ui horizontal divider">
+    <h2>Postani dobavljač!</h2>
+</div>
+
+<div class="ui steps tablet stackable">
+    <div class="step">
+        <i class="user icon"></i>
+        <div class="content">
+            <div class="title"><a href="">Registriraj Se:</a></div>
+            <div class="description">Iskoristi priliku da dosegneš kupce koji žele tvoj proizvod</div>
+        </div>
+    </div>
+    <div class="step">
+        <i class="gift icon"></i>
+        <div class="content">
+            <div class="title">Katalog</div>
+            <div class="description">Postavi proizvode na  našu stranicu</div>
+        </div>
+    </div>
+    <div class="step">
+        <i class="truck icon"></i>
+        <div class="content">
+            <div class="title">Isporuči robu na pravu adresu</div>
+            <div class="description">Ili dopusti kupcu da ju sam preuzme...</div>
+        </div>
+    </div>
+</div>
+    <div class="ui hidden divider"></div>
+    <div class="ui hidden divider"></div>
+
+
+<?php endif; ?>
+<div class="ui horizontal divider">
+    <h2>Paketi Svježe Hrane</h2>
+</div>
+<div class="ui hidden divider"></div>
+<div class="ui hidden divider"></div>
 <?php foreach ($this->listings as $k => $listing) : ?>
 <?php if ($k % 3 === 0 && $k > 0) : ?>
     </div>

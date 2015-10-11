@@ -40,9 +40,10 @@
             }
             .description{
                 width: 100%;
-                white-space: nowrap;
+
                 overflow: hidden;
-                text-overflow: ellipsis;
+                max-height: 60px;
+                margin-bottom: 0.5em;
             }
             .ui.vertical.menu{
                 width: 100%;
@@ -70,6 +71,9 @@
                 background-color: #fff6f6;
                 color: #9f3a38;
                 box-shadow: 0 0 0 1px #e0b4b4 inset, 0 0 0 0 transparent
+            }
+            .price{
+                font-weight: 600;
             }
         </style>
 
@@ -127,27 +131,9 @@
         <div class="ui vertical footer segment site-footer">
             <div class="ui container">
                 <div class="ui stackable divided equal height stackable grid">
-                    <div class="three wide column">
-                        <h4 class="ui header">About</h4>
-                        <div class="ui link list">
-                            <a href="#" class="item">Sitemap</a>
-                            <a href="#" class="item">Contact Us</a>
-                            <a href="#" class="item">Religious Ceremonies</a>
-                            <a href="#" class="item">Gazebo Plans</a>
-                        </div>
-                    </div>
-                    <div class="three wide column">
-                        <h4 class="ui header">Services</h4>
-                        <div class="ui link list">
-                            <a href="#" class="item">Banana Pre-Order</a>
-                            <a href="#" class="item">DNA FAQ</a>
-                            <a href="#" class="item">How To Access</a>
-                            <a href="#" class="item">Favorite X-Men</a>
-                        </div>
-                    </div>
-                    <div class="seven wide column">
-                        <h4 class="ui header">Footer Header</h4>
-                        <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+                    <div class="sixteen wide column">
+                        <h4 class="ui header">Team Zippo</h4>
+                        <p>Made na katu | 2015</p>
                     </div>
                 </div>
             </div>
