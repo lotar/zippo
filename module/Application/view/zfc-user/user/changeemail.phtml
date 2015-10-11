@@ -24,19 +24,17 @@ $form->setAttribute('method', 'post');
                 <?php elseif ($element instanceof Zend\Form\Element\Captcha): ?>
                     <?php echo $this->formCaptcha($element) . $this->formElementErrors($element) ?>
                 <?php else: ?>
-                    <div class="field">
-                        <div class="ui left input">
-                            <?php if ($element->getName() === 'newIdentity'): ?>
-                                <?php echo $this->formInput($element->setAttribute('placeholder', 'Novi email')) . $this->formElementErrors($element) ?>
-                            <?php elseif ($element->getName() === 'newIdentityVerify'): ?>
-                                <?php echo $this->formInput($element->setAttribute('placeholder', 'Novi email ponovno')) . $this->formElementErrors($element) ?>
-                            <?php elseif ($element->getName() === 'credential'): ?>
-                                <?php echo $this->formInput($element->setAttribute('placeholder', 'Lozinka')) . $this->formElementErrors($element) ?>
-                            <?php else: ?>
-                                <?php echo $this->formInput($element) . $this->formElementErrors($element) ?>
-                            <?php endif; ?>
-                        </div>
-                    </div>
+
+                        <?php if ($element->getName() === 'newIdentity'): ?>
+                            <?php echo '<div class="field"><div class="ui left input">' . $this->formInput($element->setAttribute('placeholder', 'Novi email')) . $this->formElementErrors($element) . '</div></div>' ?>
+                        <?php elseif ($element->getName() === 'newIdentityVerify'): ?>
+                            <?php echo '<div class="field"><div class="ui left input">' . $this->formInput($element->setAttribute('placeholder', 'Novi email ponovno')) . $this->formElementErrors($element) . '</div></div>' ?>
+                        <?php elseif ($element->getName() === 'credential'): ?>
+                            <?php echo '<div class="field"><div class="ui left input">' . $this->formInput($element->setAttribute('placeholder', 'Lozinka')) . $this->formElementErrors($element) . '</div></div>' ?>
+                        <?php else: ?>
+                            <?php echo $this->formInput($element) . $this->formElementErrors($element) ?>
+                        <?php endif; ?>
+
                 <?php endif ?>
             <?php endforeach ?>
         </dl>
