@@ -40,7 +40,7 @@ $form->setAttribute('autocomplete', 'off');
         <div class="ui message">
             New to us?
             <?php if ($this->enableRegistration) : ?>
-                <?php echo $this->translate('Not registered?'); ?> <a href="<?php echo $this->url('zfcuser/register') . ($this->redirect ? '?redirect='.$this->escapeUrl($this->redirect) : '') ?>"><?php echo $this->translate('Sign up!'); ?></a>
+                <?php echo $this->translate('Niste registrirani?'); ?> <a href="<?php echo $this->url('zfcuser/register') . ($this->redirect ? '?redirect='.$this->escapeUrl($this->redirect) : '') ?>"><?php echo $this->translate('Registrirajte se!'); ?></a>
             <?php endif; ?>
         </div>
     </div>
