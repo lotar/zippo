@@ -20,7 +20,7 @@ $form->setAttribute('method', 'post');
         <div class="ui large form" _lpchecked="1">
         <?php echo $this->form()->openTag($form) ?>
             <div class="ui stacked segment">
-        <dl class="zend_form">
+        <dl class="zend_form" style="margin-top: 0">
             <?php foreach ($form as $element): ?>
                 <?php if ($element->getLabel() != null): ?>
                     <span><?php echo $this->formLabel($element) ?></span>
@@ -48,13 +48,14 @@ $form->setAttribute('method', 'post');
     </div>
     <div class="four wide column">
         <div class="ui vertical menu">
+            <div class="item">Moj Račun</div>
             <div class="item">
                 <span class="ui circular image">
                     <?php echo $this->gravatar($this->zfcUserIdentity()->getEmail()); ?>
                 </span>
                 <strong><?php echo $this->zfcUserDisplayName();?></strong>
             </div>
-            <a class="item" href="/user">Moj Račun</a>
+            <a class="item" href="/user">Moj Podaci</a>
             <a class="item" href="/listing/index">Pregled ponude</a>
             <a class="item" href="/user/change-email">Promijeni email</a>
             <a class="item" href="/user/change-password">Promijeni Lozinku</a>
