@@ -1,36 +1,47 @@
-
-<div class="ui grid">
+<div class="ui grid" xmlns="http://www.w3.org/1999/html">
     <div class="twelve wide column">
         <h1>Moji podaci</h1>
-        <h2 class="ui header">
-            <div class="ui circular image">
-                <?php echo $this->gravatar($this->zfcUserIdentity()->getEmail()); ?>
+            <div class="ui large form" _lpchecked="1">
+            <form method="post" action="/account/edit">
+
+                <div class="ui stacked segment">
+                    <div class="field">
+                        <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input id="edit-name" type="text" name="name" value="<?php echo $this->zfcUserIdentity()->getDisplayName() ?>" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                        <i class="phone icon"></i>
+                            <input id="edit-phone" type="text" name="phone" value="<?php echo $this->zfcUserIdentity()->getPhone() ?>" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="map icon"></i>
+                            <input id="edit-address" type="text" name="address" value="<?php echo $this->zfcUserIdentity()->getAddress() ?>" />
+                        </div>
+                    </div>
+                    <button type="submit" value="Spremi" class="ui fluid large submit button">Spremi</button>
+                </div>
+            </form>
             </div>
 
-            <?php echo $this->zfcUserDisplayName() ?>
-
-            <form method="post" action="/account/edit">
-                <label for="edit-name">Ime</label><br/>
-                <input id="edit-name" type="text" name="name" value="<?php echo $this->zfcUserIdentity()->getDisplayName() ?>" /><br/>
-                <label for="edit-phone">Broj telefona</label><br/>
-                <input id="edit-phone" type="text" name="phone" value="<?php echo $this->zfcUserIdentity()->getPhone() ?>" /><br/>
-                <label for="edit-address">Adresa</label><br/>
-                <input id="edit-phone" type="text" name="address" value="<?php echo $this->zfcUserIdentity()->getAddress() ?>" /><br/>
-                <label for="edit-description">Opis</label><br/>
-                <textarea id="edit-description" name="description"><?php echo $this->zfcUserIdentity()->getDescription() ?></textarea><br/>
-                <input type="submit" value="Spremi"/>
-            </form>
-        </h2>
     </div>
     <div class="four wide column">
-
-    <div class="ui vertical menu">
-        <a class="item" href="/listing/index">Pregled ponude</a>
-        <div class="header item"><a href="/user">Moj Račun</a></div>
-        <a class="item" href="/user/change-email">Promijeni email</a>
-        <a class="item" href="/user/change-password">Promijeni Lozinku</a>
-        <a class="item" href="<?php echo $this->url('zfcuser/logout') ?>"><strong><?php echo $this->translate('Odjava'); ?></strong></a>
-    </div>
-
+        <div class="ui vertical menu">
+            <div class="item">
+                <span class="ui circular image">
+                    <?php echo $this->gravatar($this->zfcUserIdentity()->getEmail()); ?>
+                </span>
+                <strong><?php echo $this->zfcUserDisplayName();?></strong>
+            </div>
+            <a class="item" href="/listing/index">Pregled ponude</a>
+            <a class="item" href="/user">Moj Račun</a>
+            <div class="header item"><a href="/user/change-email">Promijeni email</a></div>
+            <a class="item" href="/user/change-password">Promijeni Lozinku</a>
+            <a class="item" href="<?php echo $this->url('zfcuser/logout') ?>"><strong><?php echo $this->translate('Odjava'); ?></strong></a>
+        </div>
     </div>
 </div>

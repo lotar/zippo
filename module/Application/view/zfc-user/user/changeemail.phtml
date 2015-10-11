@@ -12,14 +12,11 @@ $form->setAttribute('action', $this->url('zfcuser/changeemail'));
 $form->setAttribute('method', 'post');
 
 ?>
-
-
 <div class="ui grid">
+
     <div class="twelve wide column">
-        <div style="float:left; padding-right:16px;"><?php echo $this->gravatar($this->zfcUserIdentity()->getEmail()) ?></div>
-        <h3><?php echo $this->translate('Hello'); ?>, <?php echo $this->zfcUserDisplayName() ?>!</h3>
-        <a href="<?php echo $this->url('zfcuser/logout') ?>">[<?php echo $this->translate('Sign Out'); ?>]</a>
-        <div style="clear:both;"></div>
+
+        <h1>Promijeni Email</h1>
 
         <?php echo $this->form()->openTag($form) ?>
         <dl class="zend_form">
@@ -42,18 +39,21 @@ $form->setAttribute('method', 'post');
         <input type="submit" value="Submit" />
         <?php echo $this->form()->closeTag() ?>
 
-
     </div>
     <div class="four wide column">
-
         <div class="ui vertical menu">
+            <div class="item">
+                <span class="ui circular image">
+                    <?php echo $this->gravatar($this->zfcUserIdentity()->getEmail()); ?>
+                </span>
+                <strong><?php echo $this->zfcUserDisplayName();?></strong>
+            </div>
             <a class="item" href="/listing/index">Pregled ponude</a>
             <a class="item" href="/user">Moj Račun</a>
             <div class="header item"><a href="/user/change-email">Promijeni email</a></div>
             <a class="item" href="/user/change-password">Promijeni Lozinku</a>
             <a class="item" href="<?php echo $this->url('zfcuser/logout') ?>"><strong><?php echo $this->translate('Odjava'); ?></strong></a>
         </div>
-
     </div>
 </div>
 
