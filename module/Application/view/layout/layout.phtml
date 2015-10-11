@@ -10,19 +10,33 @@
             ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
         ?>
 
+        <script src="//code.jquery.com/jquery-2.1.4.js"></script>
         <script src="//oss.maxcdn.com/semantic-ui/2.1.4/semantic.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="//oss.maxcdn.com/semantic-ui/2.1.4/components/reset.min.css">
         <link rel="stylesheet" type="text/css" href="//oss.maxcdn.com/semantic-ui/2.1.4/semantic.min.css">
-        <link rel="stylesheet" type="text/css" href="//oss.maxcdn.com/semantic-ui/2.1.4/components/site.min.css">
+
 
 
         <style type="text/css">
+            body{
+                background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/symphony.png);
+            }
             .site-container{
                 padding: 1em 0;
             }
+            .site-logo{
+                text-align: center;
+
+            }
             .site-logo img{
+                padding-top: 0.5em;
                 width: 100%;
                 max-width: 150px;
+            }
+            .ui.vertical.segment.site-footer{
+                margin-top: 3em;
+                padding-top: 1em;
+                background: #fff;
+
             }
             .description{
                 width: 100%;
@@ -62,31 +76,81 @@
     </head>
     <body>
         <div class="ui main container site-container">
-            <h1 class="site-logo">
-                <a href="<?php echo $this->url("application"); ?>">
-                    <img src="/cdn/assets/images/farma-direkt-logo.png" alt="">
-                </a>
-            </h1>
-
-            <div class="ui stackable menu">
-                <a class="item"><strong>Domaće je najbliže</strong></a>
-<!--                <a class="item">Features</a>-->
-<!--                <a class="item">Testimonials</a>-->
-                <div class="right menu">
-                    <?php if ($this->zfcUserIdentity()):?>
-                    <a class="item" href="/user"><i class="sign in icon"></i>
-                    <?php echo $this->zfcUserIdentity()->getEmail();?>
+            <div class="ui grid stackable">
+                <h1 class="site-logo three wide column">
+                    <a href="<?php echo $this->url("application"); ?>">
+                        <img src="/cdn/assets/images/farma-direkt-logo.png" alt="">
                     </a>
-                    <a class="item"><i class="in cart icon"></i> Košarica</a>
-                    <?php else: ?>
-                        <a class="item" href="/user/login"><i class="sign in icon"></i> Moj račun</a>
-                        <a class="item" href="/order/index"><i class="in cart icon"></i> Košarica</a>
-                    <?php endif;?>
+                </h1>
+                <div class="thirteen wide column">
 
+                    <div class="ui secondary menu">
+                        <a class="active item" href="<?php echo $this->url("application"); ?>">
+                            Početna
+                        </a>
+                        <div class="menu right">
+                                <?php if ($this->zfcUserIdentity()):?>
+                                    <div class="item">
+                                        <a class="ui button" href="/user"><i class="sign in icon"></i>
+                                            <?php echo $this->zfcUserIdentity()->getEmail();?>
+                                        </a>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="item">
+                                        <a class="ui button" href="/user/login"><i class="sign in icon"></i>
+                                            Moj Račun
+                                        </a>
+                                    </div>
+                                <?php endif;?>
+                        </div>
+                    </div>
+
+
+                <div class="ui menu">
+                    <div class="item">
+                        <strong>
+                            Voće i povrće pred Vaša vrata.
+                        </strong>
+                    </div>
+                    <div class="compact menu right">
+                            <div class="item">
+                                <a class="ui button green" href="/order/index"><i class="in cart icon"></i> Košarica</a>
+                            </div>
+                    </div>
+                </div>
 
                 </div>
             </div>
+
             <?php echo $this->content; ?>
+        </div>
+        <div class="ui vertical footer segment site-footer">
+            <div class="ui container">
+                <div class="ui stackable divided equal height stackable grid">
+                    <div class="three wide column">
+                        <h4 class="ui header">About</h4>
+                        <div class="ui link list">
+                            <a href="#" class="item">Sitemap</a>
+                            <a href="#" class="item">Contact Us</a>
+                            <a href="#" class="item">Religious Ceremonies</a>
+                            <a href="#" class="item">Gazebo Plans</a>
+                        </div>
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui header">Services</h4>
+                        <div class="ui link list">
+                            <a href="#" class="item">Banana Pre-Order</a>
+                            <a href="#" class="item">DNA FAQ</a>
+                            <a href="#" class="item">How To Access</a>
+                            <a href="#" class="item">Favorite X-Men</a>
+                        </div>
+                    </div>
+                    <div class="seven wide column">
+                        <h4 class="ui header">Footer Header</h4>
+                        <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+                    </div>
+                </div>
+            </div>
         </div>
         <?php echo $this->inlineScript() ?>
     </body>

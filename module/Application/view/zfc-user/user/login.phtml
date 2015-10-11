@@ -5,14 +5,14 @@ $form->setAttribute('action', $this->url('zfcuser/login', array('redirect' => '/
 $form->setAttribute('method', 'post');
 $form->setAttribute('autocomplete', 'off');
 ?>
-<div class="ui middle aligned center aligned grid">
+<div class="ui three column centered grid">
     <div class="column">
-        <h2 class="ui image header">
+        <h1 class="ui image header">
             <div class="content">
-                Prijava
+                <?php echo $this->translate('Prijavi se:'); ?>
             </div>
-        </h2>
-        <div class="ui large form" _lpchecked="1">
+        </h1>
+        <div class="ui medium form" _lpchecked="1">
         <?php echo $this->form()->openTag($form) ?>
         <?php echo $this->formElementErrors($form->get('identity')) ?>
             <div class="ui stacked segment">
@@ -44,6 +44,6 @@ $form->setAttribute('autocomplete', 'off');
             <?php endif; ?>
         </div>
     </div>
-</div>
 
+</div>
 

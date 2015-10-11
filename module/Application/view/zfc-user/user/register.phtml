@@ -1,5 +1,3 @@
-<h1><?php echo $this->translate('Ono s lozinkom'); ?></h1>
-
 <?php
 if (!$this->enableRegistration) {
     print "Registration is disabled";
@@ -11,7 +9,15 @@ $form->setAttribute('action', $this->url('zfcuser/register'), array('redirect' =
 $form->setAttribute('method', 'post');
 $form->setAttribute('autocomplete', 'off');
 ?>
-<div class="ui large form" _lpchecked="1">
+<div class="ui three column centered grid">
+    <div class="column">
+
+        <h1 class="ui image header">
+            <div class="content">
+                <?php echo $this->translate('Registriraj se:'); ?>
+            </div>
+        </h1>
+<div class="ui medium form" _lpchecked="1">
     <div class="ui stacked segment">
         <?php echo $this->form()->openTag($form) ?>
 
@@ -37,4 +43,6 @@ $form->setAttribute('autocomplete', 'off');
             <?php endif ?>
         <?php echo $this->form()->closeTag() ?>
     </div>
+</div>
+</div>
 </div>

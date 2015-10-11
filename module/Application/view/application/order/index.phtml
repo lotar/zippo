@@ -7,7 +7,8 @@
         <th>Opis</th>
         <th>Količina</th>
         <th>Uredi</th>
-    </tr></thead>
+    </tr>
+    </thead>
     <tbody>
     <?php foreach ($this->listings as $k => $listing) : ?>
         <tr>
@@ -15,9 +16,9 @@
                 <h2 class="ui center aligned header">
                     <div class="image">
                         <?php if ($listing->getImageLink()):?>
-                            <img width="60" height="60" src="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/cdn/uploads/' . $listing->getImageLink() ?>">
+                            <img width="60" height="60" src="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/cdn/uploads/' . $listing->getImageLink() ?>"/>
                         <?php else: ?>
-                            <img src="http://placehold.it/60x60">
+                            <img src="http://placehold.it/60x60"/>
                         <?php endif;?>
                     </div>
                 </h2>
@@ -37,7 +38,7 @@
     </tbody>
 </table>
 
-<div class="ui large form" _lpchecked="1">
+<div class="ui large form">
     <form method="post" action="/order/makeOrder">
         <div class="ui stacked segment">
             <div class="field">
@@ -45,27 +46,28 @@
                     <i class="user icon"></i>
                     <input id="" type="text" name="name" value="" placeholder="Ime i Prezime"/>
                 </div>
-
             </div>
             <div class="field">
                 <div class="ui left icon input">
                     <i class="mail icon"></i>
-                    <input id="" type="email" name="email" value="" placeholder="e-mail"/>
+                    <input id="customer_email" type="email" name="email" value="" placeholder="e-mail"/>
                 </div>
             </div>
             <div class="field">
                 <div class="ui left icon input">
                     <i class="phone icon"></i>
-                    <input id="" type="number" name="phone" value="" placeholder="Telefon"/>
+                    <input id="customer_phone" type="tel" name="telephone" value="" placeholder="Telefon"/>
                 </div>
             </div>
             <div class="field">
                 <div class="ui left icon input">
                     <i class="pin icon"></i>
-                    <input id="" type="text" name="address" value="" placeholder="Adresa"/>
+                    <input id="customer_address" type="text" name="address" value="" placeholder="Adresa"/>
                 </div>
             </div>
             <button type="submit" value="Spremi" class="ui fluid large submit button">Naruči</button>
         </div>
+
     </form>
-    <div>
+</div>
+
