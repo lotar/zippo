@@ -17,28 +17,34 @@ $form->setAttribute('method', 'post');
     <div class="twelve wide column">
 
         <h1>Promijeni Email</h1>
-
+        <div class="ui large form" _lpchecked="1">
         <?php echo $this->form()->openTag($form) ?>
+            <div class="ui stacked segment">
         <dl class="zend_form">
             <?php foreach ($form as $element): ?>
                 <?php if ($element->getLabel() != null): ?>
-                    <dt><?php echo $this->formLabel($element) ?></dt>
+                    <span><?php echo $this->formLabel($element) ?></span>
                 <?php endif ?>
                 <?php if ($element instanceof Zend\Form\Element\Button): ?>
                     <dd><?php echo $this->formButton($element) ?></dd>
                 <?php elseif ($element instanceof Zend\Form\Element\Captcha): ?>
-                    <dd><?php echo $this->formCaptcha($element) . $this->formElementErrors($element) ?></dd>
+                    <?php echo $this->formCaptcha($element) . $this->formElementErrors($element) ?>
                 <?php else: ?>
-                    <dd><?php echo $this->formInput($element) . $this->formElementErrors($element) ?></dd>
+                    <div class="field">
+                        <div class="ui left input">
+                            <?php echo $this->formInput($element) . $this->formElementErrors($element) ?>
+                        </div>
+                    </div>
                 <?php endif ?>
             <?php endforeach ?>
         </dl>
         <?php if ($this->redirect): ?>
             <input type="hidden" name="redirect" value="<?php echo $this->redirect ?>" />
         <?php endif ?>
-        <input type="submit" value="Submit" />
+        <button class="ui submit button fluid large" type="submit" value="Submit">Submit</button>
         <?php echo $this->form()->closeTag() ?>
-
+            </div>
+        </div>
     </div>
     <div class="four wide column">
         <div class="ui vertical menu">
@@ -48,9 +54,9 @@ $form->setAttribute('method', 'post');
                 </span>
                 <strong><?php echo $this->zfcUserDisplayName();?></strong>
             </div>
-            <a class="item" href="/listing/index">Pregled ponude</a>
             <a class="item" href="/user">Moj Račun</a>
-            <div class="header item"><a href="/user/change-email">Promijeni email</a></div>
+            <a class="item" href="/listing/index">Pregled ponude</a>
+            <a class="item" href="/user/change-email">Promijeni email</a>
             <a class="item" href="/user/change-password">Promijeni Lozinku</a>
             <a class="item" href="<?php echo $this->url('zfcuser/logout') ?>"><strong><?php echo $this->translate('Odjava'); ?></strong></a>
         </div>
