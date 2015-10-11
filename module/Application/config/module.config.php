@@ -85,7 +85,6 @@ return array(
         'invokables' => array(
             'Application\Controller\Index' => Controller\IndexController::class,
             'Application\Controller\Listing' => Controller\ListingController::class,
-            'Application\Controller\Cart' => Controller\CartController::class,
             'Application\Controller\Account' => Controller\AccountController::class,
             'Application\Controller\Order' => Controller\OrderController::class
         ),

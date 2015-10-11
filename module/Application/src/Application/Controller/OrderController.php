@@ -4,6 +4,14 @@ namespace Application\Controller;
 
 use Application\Document\Listing;
 use Application\Document\OrderItem;
+use Application\Document\User;
+use Doctrine\DBAL\Schema\View;
+use Doctrine\Tests\Common\Reflection\StaticReflectionParserTest;
+use Zend\Http\Client;
+use Zend\Http\Request;
+use Zend\Json\Json;
+use Zend\Mail\Message;
+use Zend\Mail\Transport\Sendmail;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -72,16 +80,119 @@ class OrderController extends BaseController
             return $this->notFoundAction();
         }
 
-        $name = $request->getPost('name', '');
-        $email = $request->getPost('description', '');
-        $phone = $request->getPost('price', 0);
-        $address = $request->getPost('price', 0);
+        /* @var \Application\Repository\OrderItem $orderItemsRepo */
+        $orderItemsRepo = $this->getDocumentManager()->getRepository('Application\Document\OrderItem');
+        $orderItems = $orderItemsRepo->getBySessionId($this->getSessionManager()->getId());
+
+        $itemsQty = array();
+        $itemIds = array();
+        foreach ($orderItems as $one) {
+            if (!isset($itemsQty[$one->getItemId()])) {
+                $itemsQty[$one->getItemId()] = 0;
+            }
+            $itemsQty[$one->getItemId()]++;
+            $itemIds[] = $one->getItemId();
+        }
+
+        /* @var \Application\Repository\Listing $listingRepo */
+        $listingRepo = $this->getDocumentManager()->getRepository('Application\Document\Listing');
+        $listings = $listingRepo->getByListingIds($itemIds);
+
+        $orderFinalMap = array();
+        $userIds = array();
+        foreach ($listings as $one) {
+            if (!isset($orderFinalMap[$one->getUserId()][$one->getId()])) {
+                $orderFinalMap[$one->getUserId()][$one->getId()] = 0;
+            }
+            $orderFinalMap[$one->getUserId()][$one->getId()]++;
+            $userIds[] = $one->getUserId();
+        }
+
+        /* @var \Application\Repository\user $userRepo */
+        $userRepo = $this->getDocumentManager()->getRepository('Application\Document\User');
+        $users = $userRepo->getMapByIds($userIds);
+
+        foreach ($users as $user) {
+            $name = $request->getPost('name', '');
+            $email = $request->getPost('description', '');
+            $phone = $request->getPost('price', 0);
+            $address = $request->getPost('price', 0);
+            $this->notifyUser(
+                $user,
+                $orderFinalMap[$user->getId()],
+                $listings,
+                $name,
+                $email,
+                $phone,
+                $address
+            );
+        }
 
         return $this->successAction();
     }
 
     public function successAction()
     {
+        return new ViewModel();
+    }
 
+    private function notifyUser(User $user, $qtyMap, $listings, $name, $email, $phone, $address)
+    {
+        //TODO: throw exception if address not recognized
+
+        $text = 'Pozdrav ' . $user->getDisplayName() . ",\n" .
+        'Dobili ste iducu narudzbu:' . "\nn";
+
+        foreach ($qtyMap as $listingId => $qty) {
+            $text .= $listings[$listingId]->getName() . ', kolicina: ' . $qtyMap[$listingId] . "\n";
+        }
+
+        $text .= "\n" . 'Narudzba je stigla od: ' . $name . ', na adresu: ' . $address . "\n";
+
+        $distance = $this->checkDistance($user, $address);
+        if ($distance !== null) {
+            $text .= "Izracunali smo da je od Vas to udaljeno" . $distance . "\n";
+        }
+
+        $text .= 'Kontakt email: ' . $email . ', kontakt telefon: ' . $phone . "\n";
+
+        $mail = new Message();
+        $mail->setBody($text);
+        $mail->setFrom($email, $name);
+        $mail->addTo($user->getEmail(), $user->getDisplayName());
+        $mail->setSubject('Nova narudzba - Farma Direkt');
+
+        $transport = new Sendmail();
+        $transport->send($mail);
+
+    }
+
+    private function checkDistance(User $user, $deliveryAddress)
+    {
+        if ($user->areCoordinatesSet()) {
+            $apiKey = $this->getServiceLocator()->get('config')['google']['api_key'];
+            $checkUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="
+                . $user->getAddress()
+                . "&destinations=" .
+                $deliveryAddress
+                . "&key=" .
+                $apiKey;
+            $request = new Request();
+            $request->setUri($checkUrl);
+            $request->setMethod('GET');
+
+            $client = new Client();
+            $response = $client->send($request);
+
+            $body = $response->getBody();
+            $decoded = Json::decode($body, Json::TYPE_ARRAY);
+            if (isset($decoded['results'][0]['geometry']['location']['lat'])
+                && isset($decoded['results'][0]['geometry']['location']['lng'])
+            ) {
+                $lat = $decoded['results'][0]['geometry']['location']['lat'];
+                $lng = $decoded['results'][0]['geometry']['location']['lng'];
+            }
+        }
+        return null;
     }
 }

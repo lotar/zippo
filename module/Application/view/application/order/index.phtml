@@ -1,7 +1,4 @@
-<?php var_dump($this->listings);?>
-<?php //var_dump($this->qty);exit;?>
-
-<h1>My Order</h1>
+<h1>Košarica</h1>
 
 <table class="ui celled padded table">
     <thead>
@@ -13,29 +10,29 @@
     </tr></thead>
     <tbody>
     <?php foreach ($this->listings as $k => $listing) : ?>
-    <tr>
-        <td>
-            <h2 class="ui center aligned header">
-                <div class="image">
-<!--                    --><?php //if ($listing->getImageLink()):?>
-                        <img src="<?php //echo 'http://' . $_SERVER['HTTP_HOST'] . '/cdn/uploads/' . $listing->getImageLink() ?>">
-<!--                    --><?php //else: ?>
-                        <img src="http://placehold.it/60x60">
-<!--                    --><?php //endif;?>
-                </div>
-            </h2>
-        </td>
-        <td class="single line">
-            <?php echo $listing->getName(); ?>
-        </td>
-        <td>
-            <?php echo $listing->getDescription(); ?>
-        </td>
-        <td class="right aligned">
-<!--            --><?php //echo $qty->getQty(); ?>
-        </td>
-        <td>x</td>
-    </tr>
+        <tr>
+            <td>
+                <h2 class="ui center aligned header">
+                    <div class="image">
+                        <?php if ($listing->getImageLink()):?>
+                            <img width="60" height="60" src="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/cdn/uploads/' . $listing->getImageLink() ?>">
+                        <?php else: ?>
+                            <img src="http://placehold.it/60x60">
+                        <?php endif;?>
+                    </div>
+                </h2>
+            </td>
+            <td class="single line">
+                <?php echo $listing->getName(); ?>
+            </td>
+            <td>
+                <?php echo $listing->getDescription(); ?>
+            </td>
+            <td class="right aligned">
+                <?php echo $this->qty[$listing->getId()]; ?>
+            </td>
+            <td><a href="/order/remove/<?php echo $listing->getId(); ?>">x</a></td>
+        </tr>
     <?php endforeach; ?>
     </tbody>
 </table>
@@ -69,7 +66,6 @@
                 </div>
             </div>
             <button type="submit" value="Spremi" class="ui fluid large submit button">Naruči</button>
-            </div>
+        </div>
     </form>
-<div>
-
+    <div>
