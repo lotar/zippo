@@ -99,6 +99,18 @@ class ListingController extends BaseController
         $description = $request->getPost('description', '');
         $quantity = $request->getPost('price', 0);
 
+        $files = $request->getFiles()->toArray();
+        $httpadapter = new \Zend\File\Transfer\Adapter\Http();
+        $filesize  = new \Zend\Validator\File\Size(array('min' => 1000 )); //1KB
+        $extension = new \Zend\Validator\File\Extension(array('extension' => array('jpg','jpeg','png')));
+        $httpadapter->setValidators(array($filesize, $extension), $files['image']['name']);
+        if ($httpadapter->isValid()) {
+            $httpadapter->setDestination(ROOT . '/public/cdn/uploads/');
+            if ($httpadapter->receive($files['image']['name'])) {
+                $listing->setImageLink($files['image']['name']);
+            }
+        }
+
         $listing->setDescription($description)
             ->setQuantity(0)
             ->setPrice((float) $quantity)
@@ -128,6 +140,18 @@ class ListingController extends BaseController
             ->setQuantity(0)
             ->setPrice((float) $quantity)
             ->setDeleted(0);
+
+        $files = $request->getFiles()->toArray();
+        $httpadapter = new \Zend\File\Transfer\Adapter\Http();
+        $filesize  = new \Zend\Validator\File\Size(array('min' => 1000 )); //1KB
+        $extension = new \Zend\Validator\File\Extension(array('extension' => array('jpg','jpeg','png')));
+        $httpadapter->setValidators(array($filesize, $extension), $files['image']['name']);
+        if ($httpadapter->isValid()) {
+            $httpadapter->setDestination(ROOT . '/public/cdn/uploads/');
+            if ($httpadapter->receive($files['image']['name'])) {
+                $listing->setImageLink($files['image']['name']);
+            }
+        }
 
         $this->getDocumentManager()->persist($listing);
         $this->getDocumentManager()->flush();

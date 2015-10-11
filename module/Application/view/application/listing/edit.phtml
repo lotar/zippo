@@ -2,7 +2,7 @@
     <div class="twelve wide column">
         <h1>Uredi ponudu</h1>
         <div class="ui large form" _lpchecked="1">
-            <form method="post" action="/listing/editSave/<?php echo $listing->getId(); ?>">
+            <form method="post" action="/listing/editSave/<?php echo $listing->getId(); ?>" enctype="multipart/form-data">
 
                 <div class="ui stacked segment">
                     <div class="field">
@@ -23,6 +23,14 @@
                             <input value="<?php echo sprintf("%.2f", $listing->getPrice()); ?>" id="edit-price" type="text" placeholder="Cijena" name="price" />
                         </div>
                     </div>
+
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="image icon"></i>
+                            <input id="edit-image" type="file" placeholder="Slika" name="image" />
+                        </div>
+                    </div>
+
                     <button type="submit" value="Spremi" class="ui fluid large submit button">Spremi</button>
                 </div>
             </form>
