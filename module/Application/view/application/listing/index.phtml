@@ -11,7 +11,11 @@
             <div class="column">
                 <div class="ui fluid card">
                     <div class="image">
-                        <img src="http://placehold.it/200x200">
+                        <?php if ($listing->getImageLink()):?>
+                            <img src="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/cdn/uploads/' . $listing->getImageLink() ?>">
+                        <?php else: ?>
+                            <img src="http://placehold.it/200x200">
+                        <?php endif;?>
                     </div>
                     <div class="content">
                         <a class="header"><?php echo $listing->getName(); ?></a>
@@ -23,8 +27,8 @@
                         </div>
                     </div>
                     <div class="extra content">
-                        <a href="/listing/delete/<?php echo $listing->getId()?>">Delete</a> |
-                        <a href="/listing/edit/<?php echo $listing->getId()?>">Edit</a>
+                        <a href="/listing/delete/<?php echo $listing->getId()?>">Briši ponudu</a> |
+                        <a href="/listing/edit/<?php echo $listing->getId()?>">Uredi ponudu</a>
                     </div>
                 </div>
             </div>

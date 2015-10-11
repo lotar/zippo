@@ -2,13 +2,13 @@
     <div class="twelve wide column">
         <h1>Kreiraj novu ponudu</h1>
         <div class="ui large form" _lpchecked="1">
-            <form method="post" action="/listing/create">
+            <form method="post" action="/listing/create" enctype="multipart/form-data">
 
                 <div class="ui stacked segment">
                     <div class="field">
                         <div class="ui left icon input">
-                            <i class="write icon"></i>
-                            <input id="edit-name" placeholder="Ime ponude" type="text" name="name"/>
+                            <i class="user icon"></i>
+                            <input id="add-name" placeholder="Ime ponude" type="text" name="name"/>
                         </div>
                     </div>
                     <div class="field">
@@ -23,6 +23,14 @@
                             <input id="edit-price" type="text" placeholder="Cijena" name="price" />
                         </div>
                     </div>
+
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="image icon"></i>
+                            <input id="add-image" type="file" placeholder="Slika" name="image" />
+                        </div>
+                    </div>
+                    
                     <button type="submit" value="Spremi" class="ui fluid large submit button">Spremi</button>
                 </div>
             </form>

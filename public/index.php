@@ -14,6 +14,8 @@ if (php_sapi_name() === 'cli-server') {
     unset($path);
 }
 
+define('ROOT', dirname(__DIR__));
+
 // Setup autoloading
 require 'init_autoloader.php';
 

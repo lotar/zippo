@@ -50,6 +50,12 @@ class Listing extends Base
     private $deleted;
 
     /**
+     * @ORM\Column(name="image", type="string", nullable=false, length=500)
+     * @var string
+     */
+    private $image;
+
+    /**
      * @param User $user
      * @param $name
      */
@@ -165,5 +171,23 @@ class Listing extends Base
     public function getDeleted()
     {
         return $this->deleted;
+    }
+
+    /**
+     * @param $link
+     * @return $this
+     */
+    public function setImageLink($link)
+    {
+        $this->image = $link;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImageLink()
+    {
+        return $this->image;
     }
 }
