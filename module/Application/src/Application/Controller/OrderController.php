@@ -5,8 +5,6 @@ namespace Application\Controller;
 use Application\Document\Listing;
 use Application\Document\OrderItem;
 use Application\Document\User;
-use Doctrine\DBAL\Schema\View;
-use Doctrine\Tests\Common\Reflection\StaticReflectionParserTest;
 use Zend\Http\Client;
 use Zend\Http\Request;
 use Zend\Json\Json;
@@ -136,6 +134,26 @@ class OrderController extends BaseController
         return new ViewModel();
     }
 
+    public function removeAction()
+    {
+        $request = $this->getRequest();
+
+        if ($request->isGet() !== true) {
+            return $this->notFoundAction();
+        }
+
+        $id = $this->params()->fromRoute('id', null);
+        if ($id === null) {
+            return $this->redirect()->toRoute('application', array('action' => 'index', 'controller' => 'order'));
+        }
+
+        /* @var \Application\Repository\OrderItem $listingRepo */
+        $listingRepo = $this->getDocumentManager()->getRepository('Application\Document\OrderItem');
+        $listingRepo->removeBySessionAndListingId($this->getSessionManager()->getId(), $id);
+
+        return $this->redirect()->toRoute('application', array('action' => 'index', 'controller' => 'order'));
+    }
+
     private function notifyUser(User $user, $qtyMap, $listings, $name, $email, $phone, $address)
     {
         //TODO: throw exception if address not recognized
@@ -144,6 +162,10 @@ class OrderController extends BaseController
         'Dobili ste iducu narudzbu:' . "\nn";
 
         foreach ($qtyMap as $listingId => $qty) {
+            /* @var \Application\Repository\OrderItem $listingRepo */
+            $listingRepo = $this->getDocumentManager()->getRepository('Application\Document\OrderItem');
+            $listingRepo->removeBySessionAndListingId($this->getSessionManager()->getId(), $listingId);
+
             $text .= $listings[$listingId]->getName() . ', kolicina: ' . $qtyMap[$listingId] . "\n";
         }
 
@@ -164,7 +186,6 @@ class OrderController extends BaseController
 
         $transport = new Sendmail();
         $transport->send($mail);
-
     }
 
     private function checkDistance(User $user, $deliveryAddress)
