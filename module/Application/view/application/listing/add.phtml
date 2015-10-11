@@ -1,0 +1,45 @@
+<div class="ui grid">
+    <div class="twelve wide column">
+        <h1>Kreiraj novu ponudu</h1>
+        <div class="ui large form" _lpchecked="1">
+            <form method="post" action="/listing/create">
+
+                <div class="ui stacked segment">
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input id="edit-name" placeholder="Ime ponude" type="text" name="name"/>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="phone icon"></i>
+                            <input id="edit-description" placeholder="Opis ponude" type="text" name="description" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="map icon"></i>
+                            <input id="edit-price" type="text" placeholder="Cijena" name="price" />
+                        </div>
+                    </div>
+                    <button type="submit" value="Spremi" class="ui fluid large submit button">Spremi</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+<div class="four wide column">
+
+    <div class="ui vertical menu">
+        <div class="header item"><a href="/listing/index">Pregled ponude</a></div>
+        <a href="/user" class="item">Moj Račun</a>
+        <a class="item" href="/user/change-email">Promijeni email</a>
+        <a class="item" href="/user/change-password">Promijeni Lozinku</a>
+        <a class="item" href="<?php echo $this->url('zfcuser/logout') ?>"><strong><?php echo $this->translate('Odjava'); ?></strong></a>
+    </div>
+
+</div>
+</div>

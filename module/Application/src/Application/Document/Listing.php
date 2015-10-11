@@ -44,6 +44,12 @@ class Listing extends Base
     private $price;
 
     /**
+     * @ORM\Column(name="deleted", type="integer", nullable=false)
+     * @var int
+     */
+    private $deleted;
+
+    /**
      * @param User $user
      * @param $name
      */
@@ -141,5 +147,23 @@ class Listing extends Base
     public function getPrice()
     {
         return (float) $this->price;
+    }
+
+    /**
+     * @param $deleted
+     * @return $this
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = (bool) $deleted;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
     }
 }

@@ -1,3 +1,5 @@
+<a href="/listing/add">Dodaj</a>
+
 <div class="ui grid">
     <div class="twelve wide column">
 
@@ -23,8 +25,8 @@
                         </div>
                     </div>
                     <div class="extra content">
-                        <i class="user icon"></i>
-                        <?php echo $this->providersMap[$listing->getUserId()]->getDisplayName(); ?>
+                        <a href="/listing/delete/<?php echo $listing->getId()?>">Delete</a> |
+                        <a href="/listing/edit/<?php echo $listing->getId()?>">Edit</a>
                     </div>
                 </div>
             </div>

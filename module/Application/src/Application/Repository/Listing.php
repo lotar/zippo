@@ -18,11 +18,12 @@ class Listing extends EntityRepository
      */
     public function getPage($limit, $offset)
     {
+        // TODO: implement
         return $this->findBy(
-            array(),
-            array('name' => 'ASC'),
-            $limit,
-            $offset
+            array('deleted' => 0),
+            array('name' => 'ASC')
+//            $limit,
+//            $offset
         );
     }
 

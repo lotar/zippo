@@ -16,14 +16,11 @@
                     <?php echo $listing->getDescription(); ?>
                 </div>
                 <div class="price">
-                    <?php echo sprintf("%.2f", $listing->getPrice()); ?> novaca
+                    <?php echo sprintf("%.2f", $listing->getPrice()); ?> KN
                 </div>
             </div>
             <div class="extra content">
-                <a href="/listing/<?php echo $listing->getUserId(); ?>">
-                    <i class="user icon"></i>
-                    <?php echo $this->providersMap[$listing->getUserId()]->getDisplayName(); ?>
-                </a>
+                <a href="/order/add/<?php echo $listing->getId(); ?>" class="button">Kupi</a>
             </div>
         </div>
     </div>
