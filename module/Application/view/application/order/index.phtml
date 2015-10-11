@@ -1,7 +1,8 @@
 <?php var_dump($this->listings);?>
-<?php var_dump($this->qty);exit;?>
+<?php //var_dump($this->qty);exit;?>
 
 <h1>My Order</h1>
+
 <table class="ui celled padded table">
     <thead>
     <tr><th class="single line">Slika proizvoda</th>
@@ -11,23 +12,31 @@
         <th>Uredi</th>
     </tr></thead>
     <tbody>
+    <?php foreach ($this->listings as $k => $listing) : ?>
     <tr>
         <td>
             <h2 class="ui center aligned header">
-                <img src="http://placehold.it/100x100" alt="">
+                <div class="image">
+<!--                    --><?php //if ($listing->getImageLink()):?>
+                        <img src="<?php //echo 'http://' . $_SERVER['HTTP_HOST'] . '/cdn/uploads/' . $listing->getImageLink() ?>">
+<!--                    --><?php //else: ?>
+                        <img src="http://placehold.it/60x60">
+<!--                    --><?php //endif;?>
+                </div>
             </h2>
         </td>
         <td class="single line">
-            Naziv proizvoda
+            <?php echo $listing->getName(); ?>
         </td>
         <td>
-            Creatine is the reference compound for power improvement, with numbers from one meta-analysis to assess potency
+            <?php echo $listing->getDescription(); ?>
         </td>
         <td class="right aligned">
-            3
+<!--            --><?php //echo $qty->getQty(); ?>
         </td>
         <td>x</td>
     </tr>
+    <?php endforeach; ?>
     </tbody>
 </table>
 
@@ -59,7 +68,7 @@
                     <input id="" type="text" name="name" value="" placeholder="Adresa"/>
                 </div>
             </div>
-            
+            <button type="submit" value="Spremi" class="ui fluid large submit button">Naruči</button>
             </div>
     </form>
 <div>
