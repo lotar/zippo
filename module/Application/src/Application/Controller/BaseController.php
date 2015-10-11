@@ -50,4 +50,20 @@ class BaseController extends AbstractActionController
     {
         return $this->getServiceLocator()->get('zfcuser_auth_service');
     }
+
+    /**
+     * @return \Zend\Session\SessionManager
+     */
+    public function getSessionManager()
+    {
+        return $this->getServiceLocator()->get('Zend\Session\SessionManager');
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrentSessionId()
+    {
+        return $this->getSessionManager()->getId();
+    }
 }

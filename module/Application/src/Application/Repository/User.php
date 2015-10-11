@@ -3,7 +3,6 @@
 namespace Application\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Query\Expr\From;
 use Doctrine\ORM\Query\Expr\Select;
 
 /**
